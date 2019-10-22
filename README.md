@@ -38,7 +38,7 @@ URL: https://pintereach-be.herokuapp.com/:id/article
 ```js        
 {
 	"title" : "How to XYZ",
-	"url" : "https://google.com,
+	"url" : "https://google.com",
 	"type" : "Biology"
 }
 ```
