@@ -1,25 +1,27 @@
 # BackEnd
 
 
-Create a new article, of a user 
-(POST)
-users/:id/newarticles
+
+
+### 1. Graph of all users
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: RAW
+URL: https://pintereach-be.herokuapp.com/users
+```
+
+### 2. All categories
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: RAW
+URL: https://pintereach-be.herokuapp.com/categories
+```
 
 
 
-Delete an existing article, of a user 
-(DELETE)
-/users/:id/articles
-
-
-
-Display all the articles of a user 
-(GET)
-YES
-
-
-Display all the articles of Pintereach 
-(Get) 
-/articles/all
-YES
----

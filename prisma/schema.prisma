@@ -11,7 +11,7 @@ model User {
   id         String  @default(cuid()) @id
   firstname  String
   lastname   String
-  email      String @unique 
+  email      String 
   articles   Article[]
   password   String
 }

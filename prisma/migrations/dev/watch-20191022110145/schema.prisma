@@ -9,9 +9,9 @@ datasource db {
 
 model User {
   id         String  @default(cuid()) @id
-  firstname  String 
+  firstname  String
   lastname   String
-  email      String  
+  email      String 
   articles   Article[]
   password   String
 }

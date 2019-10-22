@@ -1,6 +1,6 @@
-# Migration `watch-20191022092330`
+# Migration `watch-20191022110145`
 
-This migration has been generated at 10/22/2019, 9:23:30 AM.
+This migration has been generated at 10/22/2019, 11:01:45 AM.
 You can check out the [state of the schema](./schema.prisma) after the migration.
 
 ## Database Steps
@@ -51,7 +51,7 @@ CREATE UNIQUE INDEX "lift"."_ArticleToCategory_AB_unique" ON "_ArticleToCategory
 
 ```diff
 diff --git datamodel.mdl datamodel.mdl
-migration ..watch-20191022092330
+migration ..watch-20191022110145
 --- datamodel.dml
 +++ datamodel.dml
 @@ -1,0 +1,34 @@
@@ -66,9 +66,9 @@ migration ..watch-20191022092330
 +
 +model User {
 +  id         String  @default(cuid()) @id
-+  firstname  String 
++  firstname  String
 +  lastname   String
-+  email      String  
++  email      String 
 +  articles   Article[]
 +  password   String
 +}
@@ -93,11 +93,11 @@ migration ..watch-20191022092330
 
 ## Photon Usage
 
-You can use a specific Photon built for this migration (watch-20191022092330)
+You can use a specific Photon built for this migration (watch-20191022110145)
 in your `before` or `after` migration script like this:
 
 ```ts
-import Photon from '@generated/photon/watch-20191022092330'
+import Photon from '@generated/photon/watch-20191022110145'
 
 const photon = new Photon()
 
