@@ -40,7 +40,27 @@
     {
       "stepType": "CreateField",
       "model": "User",
-      "name": "username",
+      "name": "firstname",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "lastname",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "email",
       "type": {
         "Base": "String"
       },
@@ -54,12 +74,24 @@
       "type": {
         "Relation": {
           "to": "Article",
-          "to_fields": [],
+          "to_fields": [
+            "id"
+          ],
           "name": "ArticleToUser",
           "on_delete": "None"
         }
       },
       "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "password",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
       "isUnique": false
     },
     {
@@ -144,7 +176,7 @@
           "on_delete": "None"
         }
       },
-      "arity": "required",
+      "arity": "list",
       "isUnique": false
     },
     {
@@ -193,7 +225,7 @@
         "Base": "String"
       },
       "arity": "required",
-      "isUnique": false
+      "isUnique": true
     },
     {
       "stepType": "CreateField",

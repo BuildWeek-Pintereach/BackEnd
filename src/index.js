@@ -37,7 +37,6 @@ app.get(`/categories`, async (req, res) => {
     res.json(categories)
 })
 
-
 // Endpoint that delete an article (with the ID)
 app.delete(`/article/:id`, async (req, res) => {
     const { id } = req.params
@@ -60,7 +59,7 @@ app.get(`/:id/articles`, async (req, res) => {
 
 // Endpoint that create a new article, from one user
 app.post(`/:id/article`, async (req, res) => {
-    const { title, url } = req.body
+    const { title, url, type } = req.body
     const { id } = req.params
     const newarticle = await photon.articles.create({
         data: {
@@ -69,6 +68,11 @@ app.post(`/:id/article`, async (req, res) => {
             creator: {
                 connect: {
                     id: id
+                }
+            },
+            categories: {
+                connect: {
+                    type: type
                 }
             }
         }
@@ -79,24 +83,43 @@ app.post(`/:id/article`, async (req, res) => {
 
 // Endpoint that create a new user
 app.post(`/register`, async (req, res) => {
-    let { username, password } = req.body
+    let { firstname, lastname, email, password } = req.body
 
     const hash = bcrypt.hashSync(password, 12);
     password = hash;
 
     const newuser = await photon.users.create({
         data: {
-            username: username,
+            firstname: firstname,
+            lastname: lastname,
+            email: email,
             password: password,
         }
     })
     res.json(newuser)
 })
 
+
+// Endpoint that login a new user
+app.post(`/login`, async (req, res) => {
+    let { email, password } = req.body
+    const userbyemail = await photon.users.findMany({
+        where: {
+            email: email,
+            password: password
+        }
+    })
+    res.json(userbyemail)
+})
+
+
 const PORT = process.env.PORT || 3300;
 
 const server = app.listen(PORT, () => {
-	console.log(`\n=== Server listening on port ${PORT} ===\n`);
+    console.log(`\n=== Server listening on port ${PORT} ===\n`);
 });
+
+
+
 
 

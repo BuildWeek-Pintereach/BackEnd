@@ -1,20 +1,22 @@
-# Migration `watch-20191021143519`
+# Migration `watch-20191022092330`
 
-This migration has been generated at 10/21/2019, 2:35:19 PM.
+This migration has been generated at 10/22/2019, 9:23:30 AM.
 You can check out the [state of the schema](./schema.prisma) after the migration.
 
 ## Database Steps
 
 ```sql
 CREATE TABLE "lift"."User" (
+  "email" TEXT NOT NULL DEFAULT ''  ,
+  "firstname" TEXT NOT NULL DEFAULT ''  ,
   "id" TEXT NOT NULL   ,
-  "username" TEXT NOT NULL DEFAULT ''  ,
+  "lastname" TEXT NOT NULL DEFAULT ''  ,
+  "password" TEXT NOT NULL DEFAULT ''  ,
   PRIMARY KEY ("id")
 );
 
 CREATE TABLE "lift"."Article" (
   "createdAt" DATE NOT NULL DEFAULT '1970-01-01 00:00:00'  ,
-  "creator" TEXT    REFERENCES "User"(id) ON DELETE SET NULL,
   "id" TEXT NOT NULL   ,
   "title" TEXT NOT NULL DEFAULT ''  ,
   "updatedAt" DATE NOT NULL DEFAULT '1970-01-01 00:00:00'  ,
@@ -28,10 +30,19 @@ CREATE TABLE "lift"."Category" (
   PRIMARY KEY ("id")
 );
 
+CREATE TABLE "lift"."_ArticleToUser" (
+  "A" TEXT    REFERENCES "Article"(id) ON DELETE CASCADE,
+  "B" TEXT    REFERENCES "User"(id) ON DELETE CASCADE
+);
+
 CREATE TABLE "lift"."_ArticleToCategory" (
   "A" TEXT    REFERENCES "Article"(id) ON DELETE CASCADE,
   "B" TEXT    REFERENCES "Category"(id) ON DELETE CASCADE
 );
+
+CREATE UNIQUE INDEX "lift"."Category.type" ON "Category"("type")
+
+CREATE UNIQUE INDEX "lift"."_ArticleToUser_AB_unique" ON "_ArticleToUser"("A","B")
 
 CREATE UNIQUE INDEX "lift"."_ArticleToCategory_AB_unique" ON "_ArticleToCategory"("A","B")
 ```
@@ -40,10 +51,10 @@ CREATE UNIQUE INDEX "lift"."_ArticleToCategory_AB_unique" ON "_ArticleToCategory
 
 ```diff
 diff --git datamodel.mdl datamodel.mdl
-migration ..watch-20191021143519
+migration ..watch-20191022092330
 --- datamodel.dml
 +++ datamodel.dml
-@@ -1,0 +1,31 @@
+@@ -1,0 +1,34 @@
 +generator photon {
 +  provider = "photonjs"
 +}
@@ -55,8 +66,11 @@ migration ..watch-20191021143519
 +
 +model User {
 +  id         String  @default(cuid()) @id
-+  username   String 
++  firstname  String 
++  lastname   String
++  email      String  
 +  articles   Article[]
++  password   String
 +}
 +
 +model Article {
@@ -65,13 +79,13 @@ migration ..watch-20191021143519
 +  updatedAt   DateTime @updatedAt
 +  title       String
 +  url         String
-+  creator     User
++  creator     User[]
 +  categories  Category[] 
 +}
 +
 +model Category {
 + id        String   @default(cuid()) @id
-+ type      String 
++ type      String @unique
 + articles  Article[]
 +}
 +
@@ -79,11 +93,11 @@ migration ..watch-20191021143519
 
 ## Photon Usage
 
-You can use a specific Photon built for this migration (watch-20191021143519)
+You can use a specific Photon built for this migration (watch-20191022092330)
 in your `before` or `after` migration script like this:
 
 ```ts
-import Photon from '@generated/photon/watch-20191021143519'
+import Photon from '@generated/photon/watch-20191022092330'
 
 const photon = new Photon()
 

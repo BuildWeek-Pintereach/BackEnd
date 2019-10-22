@@ -9,8 +9,11 @@ datasource db {
 
 model User {
   id         String  @default(cuid()) @id
-  username   String @unique
+  firstname  String 
+  lastname   String
+  email      String  
   articles   Article[]
+  password   String
 }
 
 model Article {
@@ -19,7 +22,7 @@ model Article {
   updatedAt   DateTime @updatedAt
   title       String
   url         String
-  creator     User
+  creator     User[]
   categories  Category[] 
 }
 
