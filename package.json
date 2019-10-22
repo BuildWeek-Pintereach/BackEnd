@@ -7,7 +7,6 @@
     "dev": "node src/index.js",
     "seed": "node prisma/seed.js",
     "postinstall": "prisma2 generate",
-    "build": "test build --output public",
     "start": "node src/index.js",
     "server": "nodemon src/index.js"
   },
