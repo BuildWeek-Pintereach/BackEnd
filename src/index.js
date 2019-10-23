@@ -7,17 +7,11 @@ const restricted = require('../auth/restricted')
 
 require('dotenv').config()
 
-
-
 const photon = new Photon()
 const app = express()
 
-
-
-
 app.use(bodyParser.json())
 
-// Endpoint that display a graph of all the Users
 app.get('/users', async (req, res) => {
     const users = await photon.users.findMany({
         include: {
@@ -35,7 +29,6 @@ app.get('/users', async (req, res) => {
     res.json(users)
 })
 
-// Endpoint that return ALL categories
 app.get(`/categories`, async (req, res) => {
     const categories = await photon.categories.findMany({
         select: {
@@ -45,7 +38,6 @@ app.get(`/categories`, async (req, res) => {
     res.json(categories)
 })
 
-// Endpoint that delete an article (with the ID)
 app.delete(`/article/:id`, async (req, res) => {
     const { id } = req.params
     const article = await photon.articles.delete({
@@ -56,7 +48,6 @@ app.delete(`/article/:id`, async (req, res) => {
     res.json(article)
 })
 
-// Endpoint that GET all the articles from one user
 app.get(`/:id/articles`, async (req, res) => {
     const { id } = req.params
     const articlesByUser = await photon.users.findOne({
@@ -65,7 +56,6 @@ app.get(`/:id/articles`, async (req, res) => {
     res.json(articlesByUser)
 })
 
-// Endpoint that create a new article, from one user
 app.post(`/:id/article`, async (req, res) => {
     const { title, url, type } = req.body
     const { id } = req.params
@@ -90,9 +80,6 @@ app.post(`/:id/article`, async (req, res) => {
 
 
 
-
-
-// Endpoint that create a new user
 app.post(`/register`, async (req, res) => {
     let { firstname, lastname, email, password } = req.body
 
@@ -112,7 +99,6 @@ app.post(`/register`, async (req, res) => {
 
 
 
-// Endpoint that login a new user
 app.post(`/login`, async (req, res) => {
     let { email, password } = req.body
 
@@ -136,6 +122,9 @@ app.post(`/login`, async (req, res) => {
         res.status(400).json({message : 'Error'})
     }
 })
+
+
+
 
 
 function generateToken(userbyemail) {
