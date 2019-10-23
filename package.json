@@ -7,9 +7,11 @@
     "dev": "node src/index.js",
     "seed": "node prisma/seed.js",
     "postinstall": "prisma2 generate",
+
     "start": "node src/index.js",
     "server": "nodemon src/index.js"
   },
+  
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BuildWeek-Pintereach/BackEnd.git"

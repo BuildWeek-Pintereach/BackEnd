@@ -3,10 +3,8 @@ const bodyParser = require('body-parser')
 const { Photon } = require('@generated/photon')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-/* const restricted = require('../auth/restricted') */
 
 require('dotenv').config()
-
 
 const photon = new Photon()
 const app = express()
