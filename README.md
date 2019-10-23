@@ -38,9 +38,8 @@ URL: https://pintereach-be.herokuapp.com/:id/article
 ```js        
 {
 	"title" : "How to XYZ",
-	"url" : "https://google.com,
+	"url" : "https://google.com",
 	"type" : "Biology"
-	
 }
 ```
 
@@ -72,7 +71,7 @@ URL: https://pintereach-be.herokuapp.com/:id/articles
 ***Endpoint:***
 
 ```bash
-Method: POSt
+Method: POST
 Type: RAW
 URL: https://pintereach-be.herokuapp.com/register
 ```
