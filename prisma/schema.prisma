@@ -1,0 +1,35 @@
+generator photon {
+  provider = "photonjs"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:dev.db"
+}
+
+model User {
+  id         String  @default(cuid()) @id
+  firstname  String
+  lastname   String
+  email      String 
+  articles   Article[]
+  password   String
+  friends    String
+}
+
+model Article {
+  id          String   @default(cuid()) @id
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  title       String
+  url         String
+  creator     User[]
+  categories  Category[] 
+}
+
+model Category {
+ id        String   @default(cuid()) @id
+ type      String @unique
+ articles  Article[]
+}
+
