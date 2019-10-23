@@ -2,10 +2,18 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const { Photon } = require('@generated/photon')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken');
+const restricted = require('../auth/restricted')
+
 require('dotenv').config()
+
+
 
 const photon = new Photon()
 const app = express()
+
+
+
 
 app.use(bodyParser.json())
 
@@ -81,6 +89,9 @@ app.post(`/:id/article`, async (req, res) => {
 })
 
 
+
+
+
 // Endpoint that create a new user
 app.post(`/register`, async (req, res) => {
     let { firstname, lastname, email, password } = req.body
@@ -100,17 +111,46 @@ app.post(`/register`, async (req, res) => {
 })
 
 
+
 // Endpoint that login a new user
 app.post(`/login`, async (req, res) => {
     let { email, password } = req.body
+
     const userbyemail = await photon.users.findMany({
         where: {
             email: email,
             password: password
         }
     })
-    res.json(userbyemail)
+
+    if (userbyemail.length > 0) {
+        const user = (userbyemail[0])
+        const token = generateToken(user);
+
+        res.status(200).json({
+            Message :'You are logged in',
+            token
+        })
+
+    } else {
+        res.status(400).json({message : 'Error'})
+    }
 })
+
+
+function generateToken(userbyemail) {
+    const payload = {
+        subject: userbyemail.id,
+    };
+    
+    const secret = 'abcdefg';
+    
+    const options = {
+        expiresIn: '1d'
+    }
+
+    return jwt.sign(payload, secret, options)
+}
 
 
 
