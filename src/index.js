@@ -139,8 +139,8 @@ function generateToken(userbyemail) {
 
 
 
-const PORT = process.env.PORT || 3300;
+const PORT = process.env.PORT || 8000;
 
 const server = app.listen(PORT, () => {
-    console.log(`\n=== Server listening on port ${PORT} ===\n`);
+    console.log("App is running on port " + PORT);
 });
