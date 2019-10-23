@@ -79,7 +79,6 @@ app.post(`/:id/article`, async (req, res) => {
 })
 
 
-
 app.post(`/register`, async (req, res) => {
     let { firstname, lastname, email, password } = req.body
 
@@ -96,7 +95,6 @@ app.post(`/register`, async (req, res) => {
     })
     res.json(newuser)
 })
-
 
 
 app.post(`/login`, async (req, res) => {
@@ -122,9 +120,6 @@ app.post(`/login`, async (req, res) => {
         res.status(400).json({message : 'Error'})
     }
 })
-
-
-
 
 
 function generateToken(userbyemail) {
