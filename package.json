@@ -30,6 +30,6 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "nodemon": "^1.19.4",
-    "prisma2": "^2.0.0-preview015"
+    "prisma2": "^2.0.0-preview013.3"
   }
 }
